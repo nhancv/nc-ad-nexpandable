@@ -35,7 +35,7 @@ import android.view.animation.Transformation;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-public class ExpandableLayoutItem extends RelativeLayout
+public class NExpandableItem extends RelativeLayout
 {
     private Boolean isAnimationRunning = false;
     private Boolean isOpened = false;
@@ -44,18 +44,18 @@ public class ExpandableLayoutItem extends RelativeLayout
     private FrameLayout headerLayout;
     private Boolean closeByUser = true;
 
-    public ExpandableLayoutItem(Context context)
+    public NExpandableItem(Context context)
     {
         super(context);
     }
 
-    public ExpandableLayoutItem(Context context, AttributeSet attrs)
+    public NExpandableItem(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public ExpandableLayoutItem(Context context, AttributeSet attrs, int defStyle)
+    public NExpandableItem(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
         init(context, attrs);
@@ -63,11 +63,11 @@ public class ExpandableLayoutItem extends RelativeLayout
 
     private void init(final Context context, AttributeSet attrs)
     {
-        final View rootView = View.inflate(context, R.layout.view_expandable, this);
+        final View rootView = View.inflate(context, R.layout.n_view_expandable, this);
         headerLayout = (FrameLayout) rootView.findViewById(R.id.view_expandable_headerlayout);
-        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ExpandableLayout);
-        final int headerID = typedArray.getResourceId(R.styleable.ExpandableLayout_el_headerLayout, -1);
-        final int contentID = typedArray.getResourceId(R.styleable.ExpandableLayout_el_contentLayout, -1);
+        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NExpandable);
+        final int headerID = typedArray.getResourceId(R.styleable.NExpandable_el_headerLayout, -1);
+        final int contentID = typedArray.getResourceId(R.styleable.NExpandable_el_contentLayout, -1);
         contentLayout = (FrameLayout) rootView.findViewById(R.id.view_expandable_contentLayout);
 
         if (headerID == -1 || contentID == -1)
@@ -76,11 +76,11 @@ public class ExpandableLayoutItem extends RelativeLayout
         if (isInEditMode())
             return;
 
-        duration = typedArray.getInt(R.styleable.ExpandableLayout_el_duration, getContext().getResources().getInteger(android.R.integer.config_shortAnimTime));
+        duration = typedArray.getInt(R.styleable.NExpandable_el_duration, getContext().getResources().getInteger(android.R.integer.config_shortAnimTime));
         final View headerView = View.inflate(context, headerID, null);
         headerView.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         headerLayout.addView(headerView);
-        setTag(ExpandableLayoutItem.class.getName());
+        setTag(NExpandableItem.class.getName());
         final View contentView = View.inflate(context, contentID, null);
         contentView.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         contentLayout.addView(contentView);
