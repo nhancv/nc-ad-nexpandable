@@ -10,6 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nhancv.nexpandable.IExpandable;
+import com.nhancv.nexpandable.NExpandableItem;
+
 import java.util.List;
 
 /**
@@ -35,20 +38,36 @@ public class CustomAdapter<T> extends ArrayAdapter<T> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        T obj = getItem(position);
-        ViewHolder viewHolder;
+        final T obj = getItem(position);
+        final ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.view_row_list, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.tvHeader = (TextView) convertView.findViewById(R.id.vHeaderText);
             viewHolder.vHeaderLine = convertView.findViewById(R.id.vHeaderLine);
             viewHolder.lvItems = (ListView) convertView.findViewById(R.id.lvItems);
+            viewHolder.vRow = (NExpandableItem) convertView.findViewById(R.id.vRow);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         if (obj != null) {
-            viewHolder.tvHeader.setText(obj.toString());
+            if (viewHolder.vRow.isOpened()) {
+                viewHolder.tvHeader.setText(obj.toString() + " - Open");
+            } else {
+                viewHolder.tvHeader.setText(obj.toString() + " - Close");
+            }
+            viewHolder.vRow.setiExpandableListener(new IExpandable() {
+                @Override
+                public void close(boolean anim) {
+                    viewHolder.tvHeader.setText(obj.toString() + " - Close");
+                }
+
+                @Override
+                public void open(boolean anim) {
+                    viewHolder.tvHeader.setText(obj.toString() + " - Open");
+                }
+            });
             if (contentListAdapter != null) viewHolder.lvItems.setAdapter(contentListAdapter);
             if (position == getCount() - 1) {
                 viewHolder.vHeaderLine.setVisibility(View.GONE);
@@ -60,6 +79,7 @@ public class CustomAdapter<T> extends ArrayAdapter<T> {
     }
 
     private static class ViewHolder {
+        NExpandableItem vRow;
         TextView tvHeader;
         View vHeaderLine;
         ListView lvItems;

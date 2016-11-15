@@ -7,7 +7,7 @@
 
 
     <com.nhancv.nexpandable.NExpandableItem
-        android:id="@+id/row"
+        android:id="@+id/vRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
