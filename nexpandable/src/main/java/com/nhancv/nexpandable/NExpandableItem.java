@@ -97,6 +97,7 @@ public class NExpandableItem extends RelativeLayout {
                 return isOpened() && event.getAction() == MotionEvent.ACTION_DOWN;
             }
         });
+        typedArray.recycle();
 
     }
 

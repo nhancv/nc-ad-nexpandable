@@ -3,8 +3,6 @@ package com.nhancv.sample;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.joanzapata.android.BaseAdapterHelper;
-import com.joanzapata.android.QuickAdapter;
 import com.nhancv.nexpandable.NExpandableListView;
 
 import java.util.Arrays;
@@ -17,15 +15,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final CustomAdapter<String> arrayAdapter = new CustomAdapter<>(this, Arrays.asList(array));
-        arrayAdapter.setContentListAdapter(new QuickAdapter<String>(this, R.layout.view_list_item, Arrays.asList(array)) {
-            @Override
-            protected void convert(BaseAdapterHelper helper, String item) {
-                helper.setText(R.id.tvTx1, item);
-                helper.setVisible(R.id.vContentLine, (helper.getPosition() < array.length - 1));
-            }
-        });
+        final CustomAdapter<String> arrayAdapter = new CustomAdapter<>(this, R.layout.view_row_list, Arrays.asList(array));
         final NExpandableListView expandableLayoutListView = (NExpandableListView) findViewById(R.id.listview);
+        expandableLayoutListView.setAutoCollapse(true);
         expandableLayoutListView.setAdapter(arrayAdapter);
+
+
     }
 }

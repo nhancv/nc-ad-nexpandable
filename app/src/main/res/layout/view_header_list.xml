@@ -20,7 +20,7 @@
             android:background="@drawable/ic_indicator_header"/>
 
         <TextView
-            android:id="@+id/vHeaderText"
+            android:id="@+id/tvHeaderText"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginLeft="10dp"
